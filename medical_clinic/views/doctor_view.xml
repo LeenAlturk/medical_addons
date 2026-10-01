@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record id="users_form_inherit_clinic" model="ir.ui.view">
+    <field name="name">res.users.form.inherit.clinic</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='access_rights']" position="after">
+            <page string="Clinic Info" name="clinic_info" invisible="not show_clinic_info">
+
+                <group>
+                    <group>
+                         <field name="currency_id" invisible="1"/>
+                        <field name="consultation_fee"/>
+                    </group>
+                    <group>
+                        <field name="specialties_ids" widget="many2many_tags"/>
+                    </group>
+
+                </group>
+                <separator string="Working Schedule"/>
+                <field name="working_hours_ids">
+                    <list editable="bottom">
+                        <field name="day"/>
+                        <field name="from_hour" widget="float_time"/>
+                        <field name="to_hour" widget="float_time"/>
+                    </list>
+                </field>
+            </page>
+        </xpath>
+    </field>
+</record>
+
+    <record id = "users_simple_form" model = "ir.ui.view">
+        <field name="name">base.view.users.simple.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='mobile']" position="after">
+                 <group string="Clinic Information">
+                     <field name="is_doctor"/>
+
+                     <field name="specialties_ids" widget="many2many_tags"/>
+
+                     <field name="currency_id" invisible="1"/>
+                     <field name="consultation_fee"/>
+                 </group>
+                 <group string="Working Schedule">
+                     <field name="working_hours_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="day"/>
+                            <field name="from_hour" widget="float_time"/>
+                            <field name="to_hour" widget="float_time"/>
+                        </list>
+                     </field>
+                 </group>
+              </xpath>
+
+        </field>
+    </record>
+
+      <record model="ir.actions.act_window" id = "clinic_doctor_action" >
+        <field name="name">Doctors</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('is_doctor','=',True)]</field>
+        <field name ="help" type="html">
+           <p class="o_view_nocontent_smiling_face">
+                Add new doctor..
+            </p>
+        </field>
+    </record>
+        <menuitem id="clinic_doctor" name="Doctor" parent = "clinic_root" sequence="3" action = "clinic_doctor_action"/>
+
+</odoo>

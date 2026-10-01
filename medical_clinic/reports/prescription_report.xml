@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="prescription_report_template">
+
+            <t t-call="web.html_container">
+
+                <t t-foreach="docs" t-as="o">
+
+                    <t t-call="web.external_layout">
+
+                        <div class="page">
+
+                            <h2>
+                                Medical Prescription
+                            </h2>
+
+                            <br/>
+
+                            <strong>Patient:</strong>
+                            <span t-field="o.patient_id.name"/>
+
+                            <br/>
+
+                            <strong>Doctor:</strong>
+                            <span t-field="o.doctor_id.name"/>
+
+                            <br/>
+
+                            <strong>Date:</strong>
+                            <span t-field="o.app_date"/>
+
+                            <br/><br/>
+
+                            <table class="table table-bordered">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>Medicine</th>
+                                        <th>Dosage</th>
+                                        <th>Frequency</th>
+                                        <th>Duration</th>
+                                        <th>Time</th>
+                                        <th>Food Relation</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr
+                                        t-foreach="o.Prescription_ids"
+                                        t-as="line"
+                                    >
+
+                                        <td>
+                                            <span t-field="line.medicine_id.m_name"/>
+                                        </td>
+
+                                        <td>
+
+                                            <span t-field="line.dosage"/>
+
+                                            <span t-field="line.unit"/>
+
+                                        </td>
+
+                                        <td>
+                                            <span t-field="line.frequency"/>
+                                        </td>
+
+                                        <td>
+
+                                            <span t-field="line.duration"/>
+
+                                            days
+
+                                        </td>
+                                         <td>
+                                            <span t-field="line.time"/>
+                                        </td>
+                                         <td>
+                                            <span t-field="line.food_relation"/>
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </t>
+
+                </t>
+
+            </t>
+
+        </template>
+
+    <record id="action_prescription_report" model="ir.actions.report">
+        <field name="name">Prescription</field>
+        <field name="model">the.appointments</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">medical_clinic.prescription_report_template</field>
+        <field name="report_file">medical_clinic.prescription_report_template</field>
+    </record>
+
+</odoo>

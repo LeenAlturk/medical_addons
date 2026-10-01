@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="doctor_report_action" model="ir.actions.report">
+    <field name="name">Doctor Report</field>
+    <field name="model">doctor.report.wizard</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">medical_clinic.doctor_report_template</field>
+</record>
+
+<template id="doctor_report_template">
+    <t t-call="web.html_container">
+        <t t-call="medical_clinic.doctor_report_document"/>
+    </t>
+</template>
+
+<template id="doctor_report_document">
+    <t t-call="web.external_layout">
+        <div class="page">
+
+            <h2>Doctor Report</h2>
+
+            <p>From: <t t-esc="date_from"/></p>
+            <p>To: <t t-esc="date_to"/></p>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Appointments</th>
+                        <th>First Appointment</th>
+                        <th>Last Appointment</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <t t-foreach="docs" t-as="rec">
+                        <tr>
+                            <td><t t-esc="rec['doctor']"/></td>
+                            <td><t t-esc="rec['count']"/></td>
+                            <td><t t-esc="rec['first_date']"/></td>
+                            <td><t t-esc="rec['last_date']"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+        </div>
+    </t>
+</template>
+</odoo>

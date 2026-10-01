@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View -->
+
+    <record id="labtest_view_form" model="ir.ui.view">
+        <field name="name">labtest.view.form</field>
+        <field name="model">labtest</field>
+        <field name="arch" type="xml">
+
+            <form string="Medical Request">
+
+                <sheet>
+
+                    <group>
+
+                        <field name="name"/>
+                        <field name="appointment_id"/>
+                        <field name="doctor_id"/>
+                        <field name="patient_id"/>
+                        <field name="request_date"/>
+
+                    </group>
+
+                    <group string="Requested Medical Tests">
+
+                        <field name="laboratory_test_ids"
+                               widget="many2many_tags"/>
+
+                        <field name="radiology_test_ids"
+                               widget="many2many_tags"/>
+
+                        <field name="cardiology_test_ids"
+                               widget="many2many_tags"/>
+
+                        <field name="other_test_ids"
+                               widget="many2many_tags"/>
+
+                    </group>
+
+                    <notebook>
+
+                        <!-- Laboratory -->
+
+                        <page string="Laboratory">
+
+                            <field name="laboratory_line_ids">
+
+                                <list editable="bottom">
+
+                                    <field name="test_type_id"/>
+                                    <field name="Result"/>
+                                    <field name="Result_Date"/>
+                                    <field name="Description"/>
+                                    <field name="attachment_ids"
+                                           widget="many2many_binary"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                        <!-- Radiology -->
+
+                        <page string="Radiology">
+
+                            <field name="radiology_line_ids">
+
+                                <list editable="bottom">
+
+                                    <field name="test_type_id"/>
+                                    <field name="Result"/>
+                                    <field name="Result_Date"/>
+                                    <field name="Description"/>
+                                    <field name="attachment_ids"
+                                           widget="many2many_binary"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                        <!-- Cardiology -->
+
+                        <page string="Cardiology">
+
+                            <field name="cardiology_line_ids">
+
+                                <list editable="bottom">
+
+                                    <field name="test_type_id"/>
+                                    <field name="Result"/>
+                                    <field name="Result_Date"/>
+                                    <field name="Description"/>
+                                    <field name="attachment_ids"
+                                           widget="many2many_binary"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                        <!-- Other -->
+
+                        <page string="Other">
+
+                            <field name="other_line_ids">
+
+                                <list editable="bottom">
+
+                                    <field name="test_type_id"/>
+                                    <field name="Result"/>
+                                    <field name="Result_Date"/>
+                                    <field name="Description"/>
+                                    <field name="attachment_ids"
+                                           widget="many2many_binary"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <!-- List View -->
+
+    <record id="labtest_view_list" model="ir.ui.view">
+        <field name="name">labtest.view.list</field>
+        <field name="model">labtest</field>
+
+        <field name="arch" type="xml">
+
+            <list>
+
+                <field name="name"/>
+                <field name="appointment_id"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+                <field name="request_date"/>
+
+            </list>
+
+        </field>
+
+    </record>
+
+    <!-- Action -->
+
+    <record id="labtest_action" model="ir.actions.act_window">
+
+        <field name="name">Medical Requests</field>
+        <field name="res_model">labtest</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+    <!-- Menu -->
+
+    <menuitem id="Lab_Section"
+              name="Diagnostic Tests Section"
+              parent="clinic_root"
+              sequence="7"/>
+
+    <menuitem id="labtest_menu"
+              parent="Lab_Section"
+              name="Medical Requests"
+              action="labtest_action"
+              sequence="1"/>
+
+</odoo>

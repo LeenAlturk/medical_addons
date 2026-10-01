@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="Specialties_view_form" model="ir.ui.view">
+        <field name="name">Specialties.view.form</field>
+        <field name="model">specialties</field>
+        <field name="arch" type="xml">
+            <form string="Specialties">
+                <sheet>
+                    <group>
+                        <field name="specialties_name"/>
+                        <field name="doctor_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- List View -->
+    <record id="Specialties_view_list" model="ir.ui.view">
+        <field name="name">Specialties.view.list</field>
+        <field name="model">specialties</field>
+        <field name="arch" type="xml">
+            <list string="Specialties">
+                <field name="specialties_name"/>
+                <field name="doctor_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Action -->
+    <record id="Specialties_action" model="ir.actions.act_window">
+        <field name="name">Specialties</field>
+        <field name="res_model">specialties</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Specialties!
+            </p>
+        </field>
+    </record>
+    
+    <!-- Menu -->
+    <menuitem id="clinic_Specialties" name="Specialties" parent="clinic_configration" sequence="1" action="Specialties_action" />
+</odoo>

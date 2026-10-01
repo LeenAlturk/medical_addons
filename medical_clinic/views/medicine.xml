@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="medicine_form_view" model="ir.ui.view">
+        <field name="name">medicine.form</field>
+        <field name="model">the.medicine</field>
+        <field name="arch" type="xml">
+            <form string="Medicine">
+                <group>
+                    <field name="m_name"/>
+                    <field name="effective_material"/>
+                     <field name="lotNo"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="medicine_list_view" model="ir.ui.view">
+        <field name="name">medicine.list</field>
+        <field name="model">the.medicine</field>
+        <field name="arch" type="xml">
+            <list string="Medicine">
+                    <field name="m_name"/>
+                    <field name="effective_material"/>
+                    <field name="lotNo"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="medicine_action" model="ir.actions.act_window">
+        <field name="name">Medicines</field>
+        <field name="res_model">the.medicine</field>
+        <field name="view_mode">list,form</field>
+        <field name ="help" type="html">
+           <p class="o_view_nocontent_smiling_face">
+                Add new medicine....
+            </p>
+     </field>
+    </record>
+  <menuitem id ="clinic_configration" name="Clinic Configration" parent="clinic_root" sequence="5" />
+   <menuitem id="clinic_medicine" name="Medicines" parent="clinic_configration" sequence="0" action="medicine_action" />
+</odoo>

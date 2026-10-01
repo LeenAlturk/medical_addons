@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_invoice_report" model="ir.actions.report">
+
+         <field name="name">Invoice</field>
+         <field name="model">clinic.invoice</field>
+         <field name="report_type">qweb-pdf</field>
+         <field name="report_name">medical_clinic.invoice_report</field>
+        <field name="report_file">medical_clinic.invoice_report</field>
+        <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+    </record>
+
+
+    <template id="invoice_report">
+
+
+        <t t-call="web.html_container">
+
+        <t t-foreach = "docs" t-as ="o"/>
+            <div class="page">
+
+    <div style="text-align:center;">
+        <h1>Al Rahma Clinic</h1>
+        <h3>Patient Invoice</h3>
+    </div>
+
+    <br/>
+
+    <table style="width:100%;">
+        <tr>
+            <td>
+                <strong>Invoice Number:</strong>
+                <span t-field="o.name"/>
+            </td>
+
+            <td style="text-align:right;">
+                <strong>Invoice Date:</strong>
+                <span t-field="o.invoice_date"/>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+
+    <table style="width:100%;">
+        <tr>
+            <td>
+                <strong>Patient:</strong>
+                <span t-field="o.patient_id"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <strong>Appointment:</strong>
+                <span t-field="o.appointment_id"/>
+            </td>
+        </tr>
+    </table>
+
+    <br/><br/>
+
+    <table style="width:100%; border-collapse:collapse;">
+
+        <thead>
+            <tr>
+                <th style="text-align:left;">
+    Description
+</th>
+
+<th style="text-align:right;">
+    Amount
+</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Consultation Fee</td>
+                <td style="text-align:right;">
+                    <span t-esc="o.consultation_fee"/> IQD
+                </td>
+            </tr>
+
+            <tr>
+                <td>Extra Fees</td>
+                <td style="text-align:right;">
+                    <span t-esc="o.extra_fees"/> IQD
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <br/>
+
+    <div style="width:250px; margin-left:auto;">
+
+    <hr/>
+
+    <div style="text-align:right; font-size:18px;">
+        <strong>Total Amount:</strong>
+        <span t-esc="o.total_amount"/> IQD
+    </div>
+
+</div>
+
+    <br/><br/>
+
+
+    <br/><br/><br/>
+
+    <div style="text-align:center;">
+        Thank you for your visit
+    </div>
+
+</div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="lab_test_name_view_form" model="ir.ui.view">
+        <field name="name">lab.test.name.view.form</field>
+        <field name="model">labtest.name</field>
+        <field name="arch" type="xml">
+            <form string="Lab_test_name">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="category"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- List View -->
+    <record id="lab_test_name_view_list" model="ir.ui.view">
+        <field name="name">lab.test.name.view.list</field>
+        <field name="model">labtest.name</field>
+        <field name="arch" type="xml">
+            <list string="Lab_test_name">
+               <field name="name"/>
+                <field name="category"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Action -->
+    <record id="lab_test_name_action" model="ir.actions.act_window">
+        <field name="name">Medical Test Type</field>
+        <field name="res_model">labtest.name</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first lab test name!
+            </p>
+        </field>
+    </record>
+    
+    <!-- Menu -->
+    <menuitem id="lab_test_name_menu"
+              name="Medical Test Type"
+              parent="Lab_Section"
+              action="lab_test_name_action"
+              sequence="1"/>
+</odoo>

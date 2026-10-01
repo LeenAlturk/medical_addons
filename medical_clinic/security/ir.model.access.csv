@@ -1,0 +1,29 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_the_appointments_doctor,the.appointments doctor,model_the_appointments,medical_clinic.group_doctor,1,1,0,0
+access_the_appointments_receptionist,the.appointments receptionist,model_the_appointments,medical_clinic.group_receptionist,1,1,1,0
+access_the_appointments_laboratory,the.appointments laboratory,model_the_appointments,medical_clinic.group_laboratory_technician,1,0,0,0
+access_the_appointments_supervisor,the.appointments supervisor,model_the_appointments,medical_clinic.group_supervisor,1,1,1,0
+access_next_appointments_doctor,next.appointments doctor,model_next_appointments,medical_clinic.group_doctor,1,1,1,0
+access_next_appointments_receptionist,next.appointments receptionist,model_next_appointments,medical_clinic.group_receptionist,1,1,1,0
+access_next_appointments_laboratory,next.appointments laboratory,model_next_appointments,medical_clinic.group_laboratory_technician,1,0,0,0
+access_next_appointments_supervisor,next.appointments supervisor,model_next_appointments,medical_clinic.group_supervisor,1,1,1,0
+access_prescription_doctor,prescription doctor,model_the_prescription,medical_clinic.group_doctor,1,1,1,0
+access_prescription_receptionist,prescription receptionist,model_the_prescription,medical_clinic.group_receptionist,1,0,0,0
+access_prescription_laboratory,prescription laboratory,model_the_prescription,medical_clinic.group_laboratory_technician,1,0,0,0
+access_prescription_supervisor,prescription supervisor,model_the_prescription,medical_clinic.group_supervisor,1,1,1,0
+access_labtest_doctor,labtest doctor,model_labtest,medical_clinic.group_doctor,1,1,1,0
+access_labtest_receptionist,labtest receptionist,model_labtest,medical_clinic.group_receptionist,1,0,0,0
+access_labtest_laboratory,labtest laboratory,model_labtest,medical_clinic.group_laboratory_technician,1,1,1,0
+access_labtest_supervisor,labtest supervisor,model_labtest,medical_clinic.group_supervisor,1,1,1,0
+access_chronic_disease,chronic.disease,model_chronic_disease,base.group_user,1,1,1,1
+access_specialties,specialties,model_specialties,base.group_user,1,1,1,1
+access_the_Medicine,the.medicine,model_the_medicine,base.group_user,1,1,1,1
+access_working_dr,working.dr,model_working_dr,base.group_user,1,1,1,1
+access_advertisement,advertisement,model_advertisement,base.group_user,1,1,1,1
+access_clinic_invoice,clinic.invoice,model_clinic_invoice,base.group_user,1,1,1,1
+access_clinic_dashboard,clinic.dashboard,model_clinic_dashboard,base.group_user,1,1,1,1
+access_labtest_line,labtest.line,model_labtest_line,base.group_user,1,1,1,1
+access_labtest_name,labtest.name,model_labtest_name,base.group_user,1,1,1,1
+access_patient_report_wizard,patient.report.wizard,model_patient_report_wizard,base.group_user,1,1,1,1
+access_doctor_report_wizard,doctor.report.wizard,model_doctor_report_wizard,base.group_user,1,1,1,1
+access_medical_test_wizard,medical.test.wizard,model_medical_test_wizard,base.group_user,1,1,1,1

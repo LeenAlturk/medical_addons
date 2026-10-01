@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="advertisement_view_form" model="ir.ui.view">
+        <field name="name">advertisement.view.form</field>
+        <field name="model">advertisement</field>
+        <field name="arch" type="xml">
+            <form string="Advertisement">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description" string="Description"/>
+                        <field name="active" string="active"/>
+                        <field name="poster" widget="image" class="oe_avatar"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- List View -->
+    <record id="advertisement_view_list" model="ir.ui.view">
+        <field name="name">advertisement.view.list</field>
+        <field name="model">advertisement</field>
+        <field name="arch" type="xml">
+            <list string="Advertisement">
+                <field name="name"/>
+                <field name="description" string="Description"/>
+                <field name="active" string="active"/>
+
+            </list>
+        </field>
+    </record>
+    
+    <!-- Action -->
+    <record id="advertisement_action" model="ir.actions.act_window">
+        <field name="name">Advertisement</field>
+        <field name="res_model">advertisement</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first advertisement!
+            </p>
+        </field>
+    </record>
+    
+   <menuitem id="clinic_Advertisement" name="Advertisement" parent="clinic_configration" sequence="3" action="advertisement_action" />
+</odoo>

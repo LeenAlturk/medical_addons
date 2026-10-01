@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id = "Appointments_tree" model="ir.ui.view">
+        <field name = "name">the.appointments.list</field>
+        <field name="model">the.appointments</field>
+        <field name="arch"  type='xml'>
+          <list string="Appointments">
+              <field name="name" />
+                <field name="patient_id" />
+                <field name="patient_age" />
+                <field name="app_date" />
+                <field name="note" />
+                <field name="doctor_id"/>
+
+          </list>
+       </field>
+    </record>
+
+    <record id="Appointments_form" model="ir.ui.view">
+    <field name="name">the.appointments.form</field>
+    <field name="model">the.appointments</field>
+    <field name="arch" type="xml">
+        <form string="Appointment">
+            <header>
+                <button name="button_in_scheduled" class="oe_highlight" string="scheduled" type="object" invisible="state != 'draft'"/>
+                <button name="button_in_confirm" class="oe_highlight" string="confirm" type="object" invisible="state != 'scheduled'"/>
+                <button name="button_in_done" class="oe_highlight" string="Done" type="object" invisible="state != 'confirm'"/>
+
+                <field name="state" widget="statusbar" statusbar_visible="draft,scheduled,confirm,done"/>
+                <button name="action_create_revision"
+                            string="Create Revision"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'done'"/>
+                <button
+                        name="%(action_prescription_report)d"
+                            type="action"
+                            string="Print Prescription"
+                            class="btn-primary"
+                />
+
+                <button name="action_create_invoice"
+                    string="Create Invoice"
+                    type="object"
+                    class="oe_highlight"
+                    invisible="invoice_id"/>
+
+                <button name="action_create_lab_test"
+                        type="object"
+                        string="Create Medical Test"
+                        class="oe.highlight"/>
+
+
+
+            </header>
+
+            <sheet>
+                     <div class="oe_button_box" name="button_box">
+
+                                    <button name="action_view_chronic"
+                                            type="object"
+                                            class="oe_stat_button"
+                                            icon="fa-heartbeat">
+
+                                        <field name="chronic_count" widget="statinfo"
+                                               string="Chronic Diseases"/>
+
+                                    </button>
+
+
+                                     <button name="action_test_req"
+                                             class="oe_stat_button"
+                                             icon="fa-bars"
+                                             type="object"
+                                           >
+                                         <field name="test_count" widget="statinfo" string="Test Request"/>
+                                     </button>
+
+                            <button name="action_app_rev"
+                                 class="oe_stat_button"
+                                 icon="fa-calendar-check-o"
+                                 type="object"
+                                 >
+                                 <field name="app_rev_count" widget="statinfo" string="Revision Appointments"/>
+
+
+                         </button>
+
+                            <button name="action_view_invoice"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-file-text-o"
+                                    invisible="not invoice_id">
+
+                                <field name="invoice_count"
+                                       widget="statinfo"
+                                       string="Invoice"/>
+
+                            </button>
+
+
+                                </div>
+
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+
+
+                <group col="4">
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="patient_age" readonly="1"/>
+                    </group>
+
+                    <group>
+                        <field name="doctor_id"/>
+                        <field name="app_date"/>
+                    </group>
+
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="consultation_fee" readonly="1"/>
+                    </group>
+                </group>
+
+                <!-- Tabs -->
+                <notebook>
+
+                    <page string="Note">
+                        <group>
+                            <field name="note" placeholder="Write appointment diagnosis here..."/>
+                        </group>
+                    </page>
+
+                     <page string="Medical Docs">
+                        <group>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </page>
+                    <page string = "Media Diagnosis">
+
+                            <group>
+                                <field name="Media_Diagnosis"/>
+                            </group>
+                    </page>
+
+                    <page string="Prescription">
+    <field name="Prescription_ids">
+        <list editable="bottom">
+            <field name="medicine_id"/>
+            <field name="dosage"/>
+            <field name="unit"/>
+            <field name="frequency"/>
+            <field name="time"/>
+            <field name="food_relation"/>
+            <field name="duration"/>
+        </list>
+    </field>
+</page>
+
+                    <page string="Vital Sign">
+                        <group>
+                            <field name="Height"/>
+                            <field name="weight"/>
+                            <field name="blood_Pressure"/>
+                            <field name="pulse_rate"/>
+                            <field name="temperature"/>
+                        </group>
+                    </page>
+
+                </notebook>
+
+
+            </sheet>
+            <div>
+                <chatter/>
+            </div>
+        </form>
+    </field>
+</record>
+
+ <record id ='appointments_action' model="ir.actions.act_window">
+     <field name="name"> Appointments</field>
+     <field name="res_model">the.appointments</field>
+     <field name="view_mode">list,form</field>
+     <field name ="help" type="html">
+           <p class="o_view_nocontent_smiling_face">
+                Add new Appointments....
+            </p>
+     </field>
+ </record>
+
+<menuitem id ="clinic_app_menu" name="Clinic Appointment" parent="clinic_root" sequence="4" />
+<menuitem
+    id="clinic_appointments"
+    name="Appointments"
+    parent="clinic_app_menu"
+    sequence="0"
+    action="appointments_action"
+/>
+
+
+
+</odoo>

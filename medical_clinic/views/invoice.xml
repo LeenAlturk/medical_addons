@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="invoice_view_form" model="ir.ui.view">
+        <field name="name">invoice.view.form</field>
+        <field name="model">clinic.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Invoice">
+                <header>
+
+                    <field name="state" widget="statusbar"/>
+
+                    <button name="%(action_invoice_report)d"
+                    string="Print Invoice"
+                    type="action"
+                    class="btn-primary"
+                    />
+
+                    <button name="mark_as_paid"
+                            string="mark As Paid"
+                            class="oe_highlight"
+                            type="object"
+                            invisible="state != 'draft'">
+                    </button>
+
+                    <button name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        invisible="state == 'cancel'"/>
+
+                     <button name="action_draft"
+                        string="Reset to draft"
+                        type="object"
+                        invisible="state == 'draft'"/>
+                </header>
+                <sheet>
+                  <group>
+                       <group string="General information">>
+                        <field name="name"/>
+                        <field name="appointment_id"/>
+                        <field name="patient_id"/>
+
+                    </group>
+                    <group string="Financial  info">
+                            <field name="invoice_date"/>
+                            <field name="consultation_fee"/>
+                            <field name="extra_fees"/>
+                            <separator string=""/>
+                            <field name="total_amount" />
+
+                    </group>
+                  </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- List View -->
+    <record id="invoice_view_list" model="ir.ui.view">
+        <field name="name">invoice.view.list</field>
+        <field name="model">clinic.invoice</field>
+        <field name="arch" type="xml">
+            <list string="Invoice">
+                <field name="name"/>
+                <field name="appointment_id"/>
+                <field name="patient_id"/>
+                <field name="invoice_date"/>
+                <field name="consultation_fee" sum="Total"/>
+                <field name="extra_fees" sum="Total"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="state"/>
+
+            </list>
+        </field>
+    </record>
+    
+    <!-- Action -->
+    <record id="invoice_action" model="ir.actions.act_window">
+        <field name="name">Invoice</field>
+        <field name="res_model">clinic.invoice</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first invoice!
+            </p>
+        </field>
+    </record>
+    
+    <!-- Menu -->
+    <menuitem id="invoice_menu"
+              name="Invoice"
+              parent="clinic_configration"
+              action="invoice_action"
+              sequence="4"/>
+</odoo>

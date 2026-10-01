@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="doctor_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">doctor.report.wizard.view.form</field>
+        <field name="model">doctor.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Doctor_report_wizard">
+
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="doctor_id"/>
+                    </group>
+                    <footer>
+                            <button name="action_print_report"
+                                    type="object"
+                                    string="Print Report"
+                                    class="btn-primary"/>
+                            <button string="Cancel" special="cancel"/>
+                    </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="doctor_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Doctor report wizard</field>
+        <field name="res_model">doctor.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+    <!-- Menu -->
+   <menuitem id="doctor_report" name="Doctor Report" parent="clinic_Report" sequence="1" action="doctor_report_wizard_action" />
+</odoo>

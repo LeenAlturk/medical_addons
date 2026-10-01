@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="medical_tests_action_report" model="ir.actions.report">
+        <field name="name">Medical tests Report</field>
+        <field name="model">medical.test.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">medical_clinic.medical_tests_document</field>
+        <field name="report_file">medical_clinic.medical_tests_document</field>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <!-- DOCUMENT TEMPLATE -->
+    <template id="medical_tests_document">
+        <t t-call="web.html_container">
+
+    <t t-foreach="docs" t-as="doc">
+
+        <t t-call="web.external_layout">
+
+            <div class="page">
+
+             <h2>
+             <t t-if= "data.get('type') == 'request'">
+                 Medical Test Request
+             </t>
+             <t t-else= "">
+                 Medical Test Result
+             </t>
+             </h2>
+                <h3>
+                    <t t-esc="data.get('print_date')"/>
+                </h3>
+                <table  class="table table-borderless">
+                        <tr>
+                            <td><strong>Patient</strong></td>
+                            <td><span t-field="doc.patient_id"/> </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Doctor</strong></td>
+                            <td><span t-field="doc.doctor_id"/></td>
+                        </tr>
+                         <tr>
+                            <td><strong>Appointment ID</strong></td>
+                            <td><span t-field="doc.appointment_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Request Date</strong></td>
+                            <td><span t-field="doc.request_date"/></td>
+                        </tr>
+                    </table>
+
+                <!-- Body -->
+                <t t-if="data.get('category') == 'lab'">
+                  <t t-set ="lines" t-value ="doc.laboratory_line_ids"/>
+                </t>
+                <t t-if="data.get('category') == 'radio'">
+                    <t t-set="lines" t-value="doc.radiology_line_ids"/>
+                </t>
+                 <t t-if="data.get('category') == 'cardio'">
+                    <t t-set="lines" t-value="doc.cardiology_line_ids"/>
+                </t>
+                <t t-if="data.get('category') == 'other'">
+                    <t t-set="lines" t-value="doc.other_line_ids"/>
+                </t>
+
+                <t t-if="data.get('type') == 'request'">
+                    <table  class="table table-borderless">
+                       <tr>
+                           <th>No</th>
+                           <th>Test name</th>
+                       </tr>
+
+                   <t t-foreach="lines" t-as="line">
+                          <tr>
+                              <td><t t-esc="line_index + 1"/></td>
+                              <td><span t-field="line.test_type_id"/></td>
+                          </tr>
+
+                   </t>
+                  </table>
+                </t>
+
+                <t t-if="data.get('type') == 'result'">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>No</th>
+                            <th>Test Name</th>
+                            <th>Result</th>
+                            <th>Result date</th>
+                        </tr>
+                      <t t-foreach="lines" t-as="line">
+                          <tr>
+                              <td><t t-esc="line_index + 1"/></td>
+                              <td><span t-field="line.test_type_id"/></td>
+                              <td> <span t-field="line.Result"/></td>
+                              <td><span t-field="line.Result_Date"/></td>
+                          </tr>
+                        <tr>
+
+                                <td colspan="4">
+
+                                <strong>Description:</strong><br/>
+                               <t t-if="line.Description">
+                                <span t-field="line.Description"/>
+                               </t>
+                                <br/><br/>
+
+                                <strong>Doctor Notes:</strong><br/>
+                                <t t-if="line.Description">
+                                <span t-field="line.Doctor_Notes"/>
+                                </t>
+                            </td>
+
+                        </tr>
+                      </t>
+                    </table>
+                </t>
+
+
+             <table class="borderless">
+                 <tr>
+                     <td><strong>Doctor Signature </strong></td>
+                    <td>
+                   <span>
+                       ----------------------------
+                   </span>
+                    </td>
+                     <td>
+                          <t t-if="data.get('category') == 'lab'">
+                              <strong>Laboratory Signature </strong>
+                          </t>
+                         <t t-if="data.get('category') == 'radio'">
+                              <strong>Radiology Signature </strong>
+                          </t>
+                         <t t-if="data.get('category') == 'cardio'">
+                              <strong>Cardiology Signature </strong>
+                          </t>
+                         <t t-if="data.get('category') == 'other'">
+                              <strong> other Signature </strong>
+                          </t>
+                     </td>
+                       <td>
+                   <span>
+                       ----------------------------
+                   </span>
+                    </td>
+                 </tr>
+
+             </table>
+            </div>
+
+        </t>
+
+    </t>
+
+</t>
+    </template>
+
+
+
+
+</odoo>

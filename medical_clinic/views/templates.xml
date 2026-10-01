@@ -1,0 +1,34 @@
+<odoo>
+<record id = 'sequence_appointments' model='ir.sequence'>
+    <field name="name"> Appointments</field>
+    <field name="code">the.appointments.sequence</field>
+    <field name="prefix">APP/%(year)s/</field>
+    <field name="padding">4</field>
+    <field name="company_id" eval="False" />
+</record>
+    <record id = 'sequence_new_appointments' model='ir.sequence'>
+    <field name="name"> Next Appointments</field>
+    <field name="code">next.appointments.sequence</field>
+    <field name="prefix">NAPP/%(year)s/</field>
+    <field name="padding">4</field>
+    <field name="company_id" eval="False" />
+</record>
+
+<record id = "sequence_inv_appointments" model="ir.sequence">
+    <field name="name"> invoice clinic</field>
+    <field name="code">inv.sequence</field>
+    <field name="prefix">INV/%(year)s/</field>
+    <field name="padding">4</field>
+    <field name="company_id" eval="False" />
+</record>
+
+    <record id = "sequence_lab_test_appointments" model="ir.sequence">
+    <field name="name"> lab clinic</field>
+    <field name="code">lab.sequence</field>
+    <field name="prefix">lab/%(year)s/</field>
+    <field name="padding">4</field>
+    <field name="company_id" eval="False" />
+</record>
+</odoo>
+
+

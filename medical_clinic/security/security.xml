@@ -1,0 +1,302 @@
+<odoo>
+    <record id="group_doctor" model="res.groups">
+    <field name="name">Doctor</field>
+</record>
+
+<record id="group_supervisor" model="res.groups">
+    <field name="name">Supervisor</field>
+</record>
+
+<record id="group_receptionist" model="res.groups">
+    <field name="name">Receptionist</field>
+</record>
+
+<record id="group_laboratory_technician" model="res.groups">
+    <field name="name">Laboratory Technician</field>
+</record>
+
+<record model="ir.rule" id="appointment_rule_doctor">
+    <field name="name">Doctor appointments only</field>
+    <field name="model_id" ref="model_the_appointments"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_doctor'))]"/>
+    <field name="domain_force">
+        [('doctor_id', '=', user.id)]
+    </field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+    <record model="ir.rule" id="appointment_rule_supervisor">
+    <field name="name">Supervisor sees all</field>
+    <field name="model_id" ref="model_the_appointments"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_supervisor'))]"/>
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+</record>
+    <record model="ir.rule" id="Next_appointment_doctor" >
+        <field name="name"> Doctor see NextApp</field>
+        <field name="model_id" ref="model_next_appointments"/>
+        <field name="groups" eval="[(4, ref('medical_clinic.group_doctor'))]"/>
+        <field name="domain_force">
+        [('doctor_id', '=', user.id)]
+    </field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+    </record>
+
+<record model="ir.rule" id="patient_rule_doctor">
+    <field name="name">Doctor sees his patients only</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_doctor'))]"/>
+
+    <field name="domain_force">
+        [('appointment_ids.doctor_id', '=', user.id)]
+    </field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+
+    <record model="ir.rule" id="patient_rule_supervisor">
+    <field name="name">Supervisor sees all patients</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_supervisor'))]"/>
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+</record>
+<record model="ir.rule" id="labtest_rule_doctor">
+    <field name="name">Doctor Lab Tests Only</field>
+    <field name="model_id" ref="model_labtest"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_doctor'))]"/>
+    <field name="domain_force">
+        [('doctor_id', '=', user.id)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<record model="ir.rule" id="prescription_rule_doctor">
+    <field name="name">Doctor Prescriptions Only</field>
+    <field name="model_id" ref="model_the_prescription"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_doctor'))]"/>
+    <field name="domain_force">
+        [('appointment_id.doctor_id', '=', user.id)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+
+<!--    Repression Role -->
+<!--    patients-->
+<record model="ir.rule" id="patient_rule_receptionist">
+    <field name="name">Receptionist sees all patients</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_receptionist'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+
+<!--    Appointment-->
+    <record model="ir.rule" id="appointment_rule_receptionist">
+    <field name="name">Receptionist sees all appointment</field>
+    <field name="model_id" ref="model_the_appointments"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_receptionist'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<!--  Next appointment-->
+<record model="ir.rule" id="Next_appointment_rule_receptionist">
+    <field name="name">Receptionist sees all  Revision appointment</field>
+    <field name="model_id" ref="model_next_appointments"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_receptionist'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+
+<!--    labtest-->
+<record model="ir.rule" id="labtest_rule_receptionist">
+    <field name="name">Receptionist sees all labtest</field>
+    <field name="model_id" ref="model_labtest"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_receptionist'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<!--prescription-->
+<record model="ir.rule" id="prescription_rule_receptionist">
+    <field name="name">Receptionist sees all prescription</field>
+    <field name="model_id" ref="model_the_prescription"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_receptionist'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+
+<!--lab specialist    -->
+<!-- Appointment   -->
+    <record model="ir.rule" id="appointment_rule_laboratory">
+    <field name="name">Laboratory sees all appointments</field>
+    <field name="model_id" ref="model_the_appointments"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_laboratory_technician'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<!--    Next Appointment-->
+    <record model="ir.rule" id="next_appointment_rule_laboratory">
+    <field name="name">Laboratory sees all next appointments</field>
+    <field name="model_id" ref="model_next_appointments"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_laboratory_technician'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<!--    patient-->
+    <record model="ir.rule" id="patient_rule_laboratory">
+    <field name="name">Laboratory sees all patients</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_laboratory_technician'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<!--    prescription-->
+<record model="ir.rule" id="prescription_rule_laboratory">
+    <field name="name">Laboratory sees all prescriptions</field>
+    <field name="model_id" ref="model_the_prescription"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_laboratory_technician'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<!--    labtest-->
+    <record model="ir.rule" id="labtest_rule_laboratory">
+    <field name="name">Laboratory manages lab tests</field>
+    <field name="model_id" ref="model_labtest"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_laboratory_technician'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+
+<!--    supervisor-->
+    <record model="ir.rule" id="next_appointment_rule_supervisor">
+    <field name="name">Supervisor sees all next appointments</field>
+    <field name="model_id" ref="model_next_appointments"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_supervisor'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<!--    labtest supervisor -->
+    <record model="ir.rule" id="labtest_rule_supervisor">
+    <field name="name">Supervisor sees all lab tests</field>
+    <field name="model_id" ref="model_labtest"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_supervisor'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+
+<!--    prescription-->
+    <record model="ir.rule" id="prescription_rule_supervisor">
+    <field name="name">Supervisor sees all prescriptions</field>
+    <field name="model_id" ref="model_the_prescription"/>
+    <field name="groups" eval="[(4, ref('medical_clinic.group_supervisor'))]"/>
+
+    <field name="domain_force">
+        [(1, '=', 1)]
+    </field>
+
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+</odoo>
